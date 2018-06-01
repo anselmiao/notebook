@@ -4,5 +4,5 @@
 >>> 进入到你想存放 Scrapy项目的地方 执行 scrapy startproject xxx (xxx 是你的项目名字)
 >>> 创建完Scrapy项目之后，启动vs
 >>> 从python项目中选择 从已有的代码创建项目解决方案
->>> 在Scrapy项目的根目录下entrypoint.py(和scrapy.cfg文件同级)
+>>> 在Scrapy项目的根目录下创建entrypoint.py(和scrapy.cfg文件同级)
 >>>在解决方案窗口右键entrypoin.py设置为启动文件
