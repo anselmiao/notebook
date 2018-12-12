@@ -1,0 +1,28 @@
+# path to the partition holding ISO images (using UUID)
+probe -u $root --set=rootuuid
+set imgdevpath="/dev/disk/by-uuid/$rootuuid"
+# define globally (i.e outside any menuentry)
+insmod search_fs_uuid
+search --no-floppy --set=isopart --fs-uuid $rootuuid
+insmod all_video
+
+menuentry "Ubuntu Desktop 64bit ISO" {
+ set isofile=/boot/iso/ubuntu-14.04.3-desktop-amd64+mac.iso
+ loopback loop ($isopart)$isofile
+ linux (loop)/casper/vmlinuz file=/cdrom/preseed/ubuntu.seed boot=casper iso-scan/filename=$isofile noeject noprompt splash locale=zh_CN.UTF-8 --
+ initrd (loop)/casper/initrd.lz
+}
+
+menuentry "Deepin 2014 ISO" {
+ set isofile=/boot/iso/deepin_2014.3_amd64.iso
+ loopback loop ($isopart)$isofile
+ linux (loop)/casper/vmlinuz boot=casper iso-scan/filename=$isofile noeject noprompt splash locale=zh_CN.UTF-8 --
+ initrd (loop)/casper/initrd.lz
+}
+menuentry 'Install CentOS7'{ 
+ set isofile=/boot/iso/centos.iso
+ loopback loop ($isopart)$isofile
+ linux16 (loop)/isolinux/vmlinuz linux repo=hd:/dev/disk/by-uuid/$rootuuid:/ nouveau.modeset=0
+ initrd16 (loop)/isolinux/initrd.img 
+}
+
